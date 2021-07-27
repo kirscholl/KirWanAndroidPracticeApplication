@@ -10,6 +10,8 @@ import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
 import com.example.kirwanandroidpracticeapplication.R
 
+//可以使用implementation 'de.hdodenhof:circleimageview:3.0.1' 替换
+
 //todo 自定义View的学习 https://www.jianshu.com/p/705a6cb6bfee 很详细,抽时间复现学习一下
 class CircleImageView(context: Context, attrs: AttributeSet): AppCompatImageView(context, attrs) {
     private val mType: Int

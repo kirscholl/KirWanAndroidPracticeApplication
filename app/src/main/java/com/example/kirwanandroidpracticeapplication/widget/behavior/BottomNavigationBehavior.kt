@@ -1,4 +1,4 @@
-package com.example.kirwanandroidpracticeapplication.widget
+package com.example.kirwanandroidpracticeapplication.widget.behavior
 
 import android.animation.ObjectAnimator
 import android.content.Context
