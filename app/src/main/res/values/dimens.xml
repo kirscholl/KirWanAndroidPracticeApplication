@@ -27,6 +27,8 @@
     <dimen name="sp_50">50sp</dimen>
 
     <!-- dp -->
+    <dimen name="dp_0">0</dimen>
+    <dimen name="dp_01">0.1dp</dimen>
     <dimen name="dp_05">0.5dp</dimen>
     <dimen name="dp_1">1dp</dimen>
     <dimen name="dp_2">2dp</dimen>

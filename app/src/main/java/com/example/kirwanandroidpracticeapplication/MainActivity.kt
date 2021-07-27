@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
     private val onBottomNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         return@OnNavigationItemSelectedListener when(item.itemId){
             R.id.action_home -> {
-                //showFragmentHome
+                //showFragment(HomeFragment)
                 true
             }
             R.id.action_project -> {
