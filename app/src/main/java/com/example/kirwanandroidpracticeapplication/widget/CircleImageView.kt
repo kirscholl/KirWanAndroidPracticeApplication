@@ -13,14 +13,13 @@ import com.example.kirwanandroidpracticeapplication.R
 //可以使用implementation 'de.hdodenhof:circleimageview:3.0.1' 替换
 
 //todo 自定义View的学习 https://www.jianshu.com/p/705a6cb6bfee 很详细,抽时间复现学习一下
-class CircleImageView(context: Context, attrs: AttributeSet): AppCompatImageView(context, attrs) {
+class CircleImageView(context: Context, attrs: AttributeSet) : AppCompatImageView(context, attrs) {
+
     private val mType: Int
     private val mBorderColor: Int
     private val mBorderWidth: Int
     private val mRectRoundRadius: Int
 
-
-    //todo https://blog.csdn.net/chennai1101/article/details/87883141 Paint类的学习
     private val mPaintBitmap = Paint(Paint.ANTI_ALIAS_FLAG)
     private val mPaintBorder = Paint(Paint.ANTI_ALIAS_FLAG)
 
@@ -31,64 +30,15 @@ class CircleImageView(context: Context, attrs: AttributeSet): AppCompatImageView
     private var mShader: BitmapShader? = null
     private val mMatrix = Matrix()
 
-    companion object {
-        /**
-         * android.widget.ImageView
-         */
-        val TYPE_NONE = 0
-
-        /**
-         * 圆形
-         */
-        val TYPE_CIRCLE = 1
-
-        /**
-         * 圆角矩形
-         */
-        val TYPE_ROUNDED_RECT = 2
-
-        private val DEFAULT_TYPE = TYPE_NONE
-        private val DEFAULT_BORDER_COLOR = Color.TRANSPARENT
-        private val DEFAULT_BORDER_WIDTH = 0
-        private val DEFAULT_RECT_ROUND_RADIUS = 0
-    }
-
-
     init {
-        //获取attrs.xml中设定的参数并赋值
-        val  ta: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView)
+        //取xml文件中设定的参数
+        val ta = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView)
         mType = ta.getInt(R.styleable.CircleImageView_type, DEFAULT_TYPE)
         mBorderColor = ta.getColor(R.styleable.CircleImageView_borderColor, DEFAULT_BORDER_COLOR)
         mBorderWidth = ta.getDimensionPixelSize(R.styleable.CircleImageView_borderWidth, dip2px(DEFAULT_BORDER_WIDTH))
         mRectRoundRadius =
             ta.getDimensionPixelSize(R.styleable.CircleImageView_rectRoundRadius, dip2px(DEFAULT_RECT_ROUND_RADIUS))
         ta.recycle()
-
-    }
-
-    private fun dip2px(dipVal: Int): Int{
-        val scale = resources.displayMetrics.density
-        return (dipVal * scale + 0.5f).toInt()
-    }
-
-    private fun getBitmap(drawable: Drawable?): Bitmap?{
-        if(drawable == null){
-            return null
-        }
-        return when(drawable){
-            is BitmapDrawable -> drawable.bitmap
-            is ColorDrawable -> {
-                val rect = drawable.getBounds()
-                val width = rect.right - rect.left
-                val height = rect.bottom - rect.top
-                val color = drawable.color
-                val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-                val canvas = Canvas(bitmap)
-                canvas.drawARGB(Color.alpha(color), Color.red(color), Color.green(color), Color.blue(color))
-                bitmap
-            }
-            else -> null
-        }
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -144,5 +94,50 @@ class CircleImageView(context: Context, attrs: AttributeSet): AppCompatImageView
         } else {
             super.onDraw(canvas)
         }
+    }
+
+    private fun dip2px(dipVal: Int): Int {
+        val scale = resources.displayMetrics.density
+        return (dipVal * scale + 0.5f).toInt()
+    }
+
+    private fun getBitmap(drawable: Drawable?): Bitmap? {
+        if (drawable == null) return null
+        return when (drawable) {
+            is BitmapDrawable -> drawable.bitmap
+            is ColorDrawable -> {
+                val rect = drawable.getBounds()
+                val width = rect.right - rect.left
+                val height = rect.bottom - rect.top
+                val color = drawable.color
+                val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+                val canvas = Canvas(bitmap)
+                canvas.drawARGB(Color.alpha(color), Color.red(color), Color.green(color), Color.blue(color))
+                bitmap
+            }
+            else -> null
+        }
+    }
+
+    companion object {
+        /**
+         * android.widget.ImageView
+         */
+        val TYPE_NONE = 0
+
+        /**
+         * 圆形
+         */
+        val TYPE_CIRCLE = 1
+
+        /**
+         * 圆角矩形
+         */
+        val TYPE_ROUNDED_RECT = 2
+
+        private val DEFAULT_TYPE = TYPE_NONE
+        private val DEFAULT_BORDER_COLOR = Color.TRANSPARENT
+        private val DEFAULT_BORDER_WIDTH = 0
+        private val DEFAULT_RECT_ROUND_RADIUS = 0
     }
 }

@@ -1,2 +1,1 @@
-rootProject.name = "KirWanAndroidPracticeApplication"
-include ':app'
+include ':app', ':lib_multiple_view'
